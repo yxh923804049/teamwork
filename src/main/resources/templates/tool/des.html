@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmls="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" href="layui/css/layui.css" type="text/css">
+    <script th:src="@{/layui/layui.js}" src="layui/layui.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+<form class="layui-form" action="">
+    <div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 200px">请输入需要DES加密前的值:</label>
+            <div class="layui-input-inline">
+                <input type="text" id="preEncryptDes" name="preEncryptDes" lay-verify="title" autocomplete="off"
+                       placeholder="请输入需要DES加密前的值" class="layui-input">
+            </div>
+            <button type="button" class="layui-btn layui-btn-normal" id="encrypt">加密</button>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 200px">DES加密后的值:</label>
+            <div class="layui-input-inline">
+                <input type="text" id="aftEncryptDes" name="aftEncryptDes" lay-verify="title" readonly autocomplete="off"
+                       placeholder="DES加密后的值" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 200px">请输入需要DES解密前的值:</label>
+            <div class="layui-input-inline">
+                <input type="text" id="preDecryptDes" name="preDecryptDes" lay-verify="title" autocomplete="off"
+                       placeholder="请输入需要DES解密前的值" class="layui-input">
+            </div>
+            <button type="button" class="layui-btn layui-btn-normal" id="decrypt">解密</button>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" style="width: 200px">DES解密后的值:</label>
+            <div class="layui-input-inline">
+                <input type="text" id="aftDecryptDes" name="aftDecryptDes" lay-verify="title" readonly autocomplete="off"
+                       placeholder="DES解密后的值" class="layui-input">
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form;
+        $("#encrypt").click(function () {
+            var preEncryptDes = $("#preEncryptDes").val();
+            $.ajax({
+                type: 'post',
+                url: '/desEncrypt',
+                data: {preEncryptDes: preEncryptDes},
+                success: function (data) {
+                    $("#aftEncryptDes").val(data);
+                }
+            })
+        })
+
+        $("#decrypt").click(function () {
+            var preDecryptDes = $("#preDecryptDes").val();
+            $.ajax({
+                type: 'post',
+                url: '/desDecrypt',
+                data: {preDecryptDes: preDecryptDes},
+                success: function (data) {
+                    $("#aftDecryptDes").val(data);
+                }
+            })
+        })
+
+    })
+</script>
+</html>
