@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmls="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" href="layui/css/layui.css" type="text/css">
+    <script th:src="@{/layui/layui.js}" src="layui/layui.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body style="text-align: center">
+<form class="layui-form" action="">
+    <div class="layui-form-item layui-form-text" style="padding: 10px">
+        <label class="layui-form-label">去除前</label>
+        <div class="layui-input-block">
+            <textarea id="preSpace" placeholder="请输入内容" class="layui-textarea"></textarea>
+        </div>
+    </div>
+    <button type="button" class="layui-btn layui-btn-normal" id="transform">去除</button>
+    <button type="button" class="layui-btn layui-btn-normal" id="empty">清空</button>
+    <div class="layui-form-item layui-form-text" style="padding: 10px;margin-top: 15px">
+        <label class="layui-form-label">去除后</label>
+        <div class="layui-input-block">
+            <textarea id="aftSpace" placeholder="处理结果显示" readonly class="layui-textarea"></textarea>
+        </div>
+    </div>
+</form>
+</body>
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form;
+        $("#transform").click(function () {
+            $("#aftSpace").val($("#preSpace").val().trim().replace(/\s/g,""));
+        })
+        $("#empty").click(function () {
+            $("#preSpace").val("");
+            $("#aftSpace").val("");
+        })
+
+    })
+</script>
+</html>
