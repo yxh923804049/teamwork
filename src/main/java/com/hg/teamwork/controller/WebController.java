@@ -25,4 +25,9 @@ public class WebController {
     public String des() {
         return "/tool/des";
     }
+
+    @RequestMapping("/space")
+    public String space() {
+        return "/tool/space";
+    }
 }
