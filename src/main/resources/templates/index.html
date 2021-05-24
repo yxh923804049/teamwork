@@ -98,7 +98,7 @@
         })
 
         var now=new Date();
-        var intDiff=(17*60+30)*60-(now.getHours()*60+now.getMinutes())*60
+        var intDiff=(17*60+30)*60-((now.getHours()*60+now.getMinutes())*60+now.getSeconds())
         function timer(intDiff){
             window.setInterval(function(){
                 var day=0,
