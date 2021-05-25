@@ -16,6 +16,13 @@
                 <input type="text" id="currentTime" name="currentTime" lay-verify="title" autocomplete="off"
                        class="layui-input" readonly>
             </div>
+            <div class="layui-input-inline" style="width: 70px">
+                <button type="button" class="layui-btn layui-btn-normal" id="pause" style="background-color: #ff0000">停止
+                </button>
+            </div>
+            <div class="layui-input-inline" style="width: 70px">
+                <button type="button" class="layui-btn layui-btn-normal" id="start" style="display: none">开始</button>
+            </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">时间戳(毫秒)</label>
@@ -53,6 +60,10 @@
 <script>
     layui.use(['form', 'layedit', 'laydate'], function () {
         var form = layui.form;
+        var isPaused = false;
+
+        var timestamp = new Date().getTime();
+        $('#currentTime').val(timestamp);
 
         $(function () {
             time();
@@ -60,10 +71,26 @@
 
         function time() {
             window.setInterval(function () {
-                var timestamp = new Date().getTime();
-                $('#currentTime').val(timestamp);
+                if (!isPaused) {
+                    var timestamp = new Date().getTime();
+                    $('#currentTime').val(timestamp);
+                }
             }, 1000);
         }
+
+        $('#pause').on('click', function (e) {
+            e.preventDefault();
+            isPaused = true;
+            $("#pause").css('display', 'none');
+            $("#start").show();
+        });
+
+        $('#start').on('click', function (e) {
+            e.preventDefault();
+            isPaused = false;
+            $("#start").css('display', 'none');
+            $("#pause").show();
+        });
 
         var timestamp = new Date().getTime();
         $('#preTime1').val(timestamp);
@@ -75,7 +102,7 @@
         var hours = myDate.getHours();//获取当前小时数(0-23)
         var minutes = myDate.getMinutes();//获取当前分钟数(0-59)
         var seconds = myDate.getSeconds();//获取当前秒
-        $('#preTime2').val(year+"-"+Appendzero(month)+"-"+Appendzero(date)+" "+Appendzero(hours)+":"+Appendzero(minutes)+":"+Appendzero(seconds));
+        $('#preTime2').val(year + "-" + Appendzero(month) + "-" + Appendzero(date) + " " + Appendzero(hours) + ":" + Appendzero(minutes) + ":" + Appendzero(seconds));
 
         $("#transform1").click(function () {
             var time = $('#preTime1').val();
@@ -90,11 +117,11 @@
         })
 
         $("#transform2").click(function () {
-            var string=$('#preTime2').val();
+            var string = $('#preTime2').val();
             var f = string.split(' ', 2);
             var d = (f[0] ? f[0] : '').split('-', 3);
             var t = (f[1] ? f[1] : '').split(':', 3);
-            var timeStamp=new Date(
+            var timeStamp = new Date(
                 parseInt(d[0], 10) || null,
                 (parseInt(d[1], 10) || 1) - 1,
                 parseInt(d[2], 10) || null,

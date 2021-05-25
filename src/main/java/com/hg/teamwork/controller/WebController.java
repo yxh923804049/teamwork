@@ -35,4 +35,9 @@ public class WebController {
     public String timestamp() {
         return "/tool/timestamp";
     }
+
+    @RequestMapping("/jsonTrans")
+    public String jsonTrans() {
+        return "/tool/jsonTrans";
+    }
 }
