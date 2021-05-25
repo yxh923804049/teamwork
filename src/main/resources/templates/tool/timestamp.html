@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmls="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" href="layui/css/layui.css" type="text/css">
+    <script th:src="@{/layui/layui.js}" src="layui/layui.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+<form class="layui-form" action="">
+    <div style="padding-top: 10px">
+        <div class="layui-form-item">
+            <label class="layui-form-label">当前时间戳(毫秒)</label>
+            <div class="layui-input-inline">
+                <input type="text" id="currentTime" name="currentTime" lay-verify="title" autocomplete="off"
+                       class="layui-input" readonly>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">时间戳(毫秒)</label>
+            <div class="layui-input-inline">
+                <input type="text" id="preTime1" name="preTime1" lay-verify="title" autocomplete="off"
+                       class="layui-input">
+            </div>
+            <div class="layui-input-inline" style="width: 70px">
+                <button type="button" class="layui-btn layui-btn-normal" id="transform1">转换</button>
+            </div>
+            <div class="layui-input-inline">
+                <input type="aftTime" id="aftTime1" name="aftTime1" lay-verify="title" autocomplete="off"
+                       class="layui-input" readonly>
+            </div>
+            <label class="layui-form-label" style="text-align: left">北京时间</label>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">北京时间</label>
+            <div class="layui-input-inline">
+                <input type="text" id="preTime2" name="preTime2" lay-verify="title" autocomplete="off"
+                       class="layui-input">
+            </div>
+            <div class="layui-input-inline" style="width: 70px">
+                <button type="button" class="layui-btn layui-btn-normal" id="transform2">转换</button>
+            </div>
+            <div class="layui-input-inline">
+                <input type="aftTime" id="aftTime2" name="aftTime2" lay-verify="title" autocomplete="off"
+                       class="layui-input" readonly>
+            </div>
+            <label class="layui-form-label" style="text-align: left">时间戳(毫秒)</label>
+        </div>
+    </div>
+</form>
+</body>
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form;
+
+        $(function () {
+            time();
+        });
+
+        function time() {
+            window.setInterval(function () {
+                var timestamp = new Date().getTime();
+                $('#currentTime').val(timestamp);
+            }, 1000);
+        }
+
+        var timestamp = new Date().getTime();
+        $('#preTime1').val(timestamp);
+
+        var myDate = new Date;
+        var year = myDate.getFullYear(); //获取当前年
+        var month = myDate.getMonth() + 1; //获取当前月
+        var date = myDate.getDate(); //获取当前日
+        var hours = myDate.getHours();//获取当前小时数(0-23)
+        var minutes = myDate.getMinutes();//获取当前分钟数(0-59)
+        var seconds = myDate.getSeconds();//获取当前秒
+        $('#preTime2').val(year+"-"+Appendzero(month)+"-"+Appendzero(date)+" "+Appendzero(hours)+":"+Appendzero(minutes)+":"+Appendzero(seconds));
+
+        $("#transform1").click(function () {
+            var time = $('#preTime1').val();
+            var date = new Date(parseInt(time.replace("/Date(", "").replace(")/", ""), 10));
+            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+            var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            var hour = date.getHours();
+            var minute = date.getMinutes();
+            var second = date.getSeconds();
+            var YMDHMS = date.getFullYear() + "-" + month + "-" + currentDate + " " + Appendzero(hour) + ":" + Appendzero(minute) + ":" + Appendzero(second);
+            $('#aftTime1').val(YMDHMS);
+        })
+
+        $("#transform2").click(function () {
+            var string=$('#preTime2').val();
+            var f = string.split(' ', 2);
+            var d = (f[0] ? f[0] : '').split('-', 3);
+            var t = (f[1] ? f[1] : '').split(':', 3);
+            var timeStamp=new Date(
+                parseInt(d[0], 10) || null,
+                (parseInt(d[1], 10) || 1) - 1,
+                parseInt(d[2], 10) || null,
+                parseInt(t[0], 10) || null,
+                parseInt(t[1], 10) || null,
+                parseInt(t[2], 10) || null
+            ).getTime();
+            $('#aftTime2').val(timeStamp);
+        })
+    })
+
+    function Appendzero(obj) {
+        if (obj < 10) return "0" + obj; else return obj;
+    }
+</script>
+</html>

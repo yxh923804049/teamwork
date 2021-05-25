@@ -30,4 +30,9 @@ public class WebController {
     public String space() {
         return "/tool/space";
     }
+
+    @RequestMapping("/timestamp")
+    public String timestamp() {
+        return "/tool/timestamp";
+    }
 }
