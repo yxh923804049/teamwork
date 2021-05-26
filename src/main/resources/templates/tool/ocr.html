@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmls="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" href="layui/css/layui.css" type="text/css">
+    <script th:src="@{/layui/layui.js}" src="layui/layui.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+<form class="layui-form" action="">
+    <div class="layui-row">
+        <div class="layui-col-xs6" style="text-align: center">
+            <div class="layui-upload-drag" id="ocr">
+                <i class="layui-icon"></i>
+                <p>点击上传，或将文件拖拽到此处</p>
+                <div class="layui-hide" id="uploadDemoView" style="width: 300px">
+                    <hr>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-xs6">
+            <textarea id="result" placeholder="识别结果" class="layui-textarea" style="height: 700px" readonly></textarea>
+        </div>
+    </div>
+</form>
+</body>
+<script>
+    layui.use(['form', 'layedit', 'laydate', 'upload'], function () {
+        var form = layui.form;
+        var upload = layui.upload;
+        upload.render({
+            elem: '#ocr'
+            , url: '/ocrSpot'
+            , field: 'file'
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    layui.$('#uploadDemoView').removeClass('layui-hide');
+                    if ($("#img").length > 0) {
+                        $("#img").remove();
+                    }
+                    $('#uploadDemoView').append('<img id="img" src="' + result + '" alt="' + file.name + '" class="layui-upload-img" style="width: 100%">')
+                });
+            }
+            , done: function (res) {
+                var text = "";
+                if (res != 220) {
+                    layer.msg('上传成功');
+                    for (var i = 0; i < res.words_result.length; i++) {
+                        text = text + res.words_result[i].words + "\r\n";
+                    }
+                } else {
+                    text = "文字识别失败"
+                }
+                $("#result").val(text);
+            }
+        });
+
+    })
+</script>
+</html>

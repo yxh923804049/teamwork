@@ -1,9 +1,15 @@
 package com.hg.teamwork.controller;
 
-import com.hg.teamwork.util.DesUtils;
-import com.hg.teamwork.util.Instrument;
+import com.hg.teamwork.util.*;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.net.URLEncoder;
+import java.util.UUID;
 
 /**
  * @author ying
@@ -12,6 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class businessController {
+
+    static String url = "https://aip.baidubce.com/rest/2.0/ocr/v1/general_basic";
+    static String accessToken = "";
 
     /**
      * Crc加密
@@ -65,4 +74,44 @@ public class businessController {
         return aftDecryptDes;
     }
 
+    /**
+     * 百度OCR文字识别
+     *
+     * @param file
+     * @return
+     */
+    @PostMapping("/ocrSpot")
+    @ResponseBody
+    public String ocrSpot(@RequestParam(value = "file", required = true) MultipartFile file) {
+        String result = "";
+        try {
+//            String path = ResourceUtils.getURL("classpath:").getPath()+"/img";
+            String path = "/home/server/img";
+            String fileName = file.getOriginalFilename();
+            if (fileName != null) {
+                String realPath = path + "/" + UUID.randomUUID().toString().replace("-", "") + fileName.substring(fileName.lastIndexOf("."));
+                File img = new File(realPath);
+
+                //判断文件父目录是否存在
+                if (!img.getParentFile().exists()) {
+                    img.getParentFile().mkdir();
+                }
+                // 保存文件
+                file.transferTo(img);
+
+                // 本地文件路径
+                String filePath = realPath;
+                byte[] imgData = FileUtil.readFileByBytes(filePath);
+                String imgStr = Base64Util.encode(imgData);
+                String imgParam = URLEncoder.encode(imgStr, "UTF-8");
+
+                String param = "image=" + imgParam;
+                accessToken = AuthUtil.getAuth();
+                result = HttpUtil.post(url, accessToken, param);
+            }
+        } catch (Exception e) {
+            result = "220";
+        }
+        return result;
+    }
 }

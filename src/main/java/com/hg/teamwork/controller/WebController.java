@@ -37,10 +37,17 @@ public class WebController {
     }
 
     @RequestMapping("/jsonTrans")
-    public String jsonTrans() { return "/tool/jsonTrans"; }
+    public String jsonTrans() {
+        return "/tool/jsonTrans";
+    }
 
     @RequestMapping("/baseConversion")
     public String baseConversion() {
         return "/tool/baseConversion";
+    }
+
+    @RequestMapping("/ocr")
+    public String ocr() {
+        return "/tool/ocr";
     }
 }

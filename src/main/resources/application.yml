@@ -13,3 +13,11 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/formal?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=Asia/Shanghai
     username: root
     password: 923804049
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 0
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+      
