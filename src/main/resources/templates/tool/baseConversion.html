@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmls="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" href="layui/css/layui.css" type="text/css">
+    <script th:src="@{/layui/layui.js}" src="layui/layui.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+<form class="layui-form" action="" style="padding-left: 15px">
+    <div class="layui-form-item">
+        <input type="radio" id="binary" name="base" value="2" title="二进制">
+        <input type="radio" id="octal" name="base" value="8" title="八进制">
+        <input type="radio" id="decimal" name="base" value="10" title="十进制" checked="">
+        <input type="radio" id="hexadecimal" name="base" value="16" title="十六进制">
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-inline">
+            <input type="text" id="preVal" name="preVal" lay-verify="title" autocomplete="off"
+                   class="layui-input">
+        </div>
+        <div class="layui-input-inline" style="width: 70px">
+            <button type="button" class="layui-btn layui-btn-normal" id="transform">转换</button>
+        </div>
+    </div>
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>进制</th>
+            <th>结果</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>二进制</td>
+            <td>
+                <input type="text" id="binaryVal" name="binaryVal" lay-verify="title" autocomplete="off"
+                       class="layui-input" readonly>
+            </td>
+        </tr>
+        <tr>
+            <td>八进制</td>
+            <td>
+                <input type="text" id="octalVal" name="octalVal" lay-verify="title" autocomplete="off"
+                       class="layui-input" readonly>
+            </td>
+        </tr>
+        <tr>
+            <td>十进制</td>
+            <td>
+                <input type="text" id="decimalVal" name="decimalVal" lay-verify="title" autocomplete="off"
+                       class="layui-input" readonly>
+            </td>
+        </tr>
+        <tr>
+            <td>十六进制</td>
+            <td>
+                <input type="text" id="hexadecimalVal" name="hexadecimalVal" lay-verify="title" autocomplete="off"
+                       class="layui-input" readonly>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+</body>
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form;
+        $("#transform").click(function () {
+            var base = $('input[name="base"]:checked').val()
+            var num = $("#preVal").val();
+            if (base == 2) {
+                $("#binaryVal").val(num)
+                $("#octalVal").val(parseInt(num, 2).toString(8));
+                $("#decimalVal").val(parseInt(num, 2));
+                $("#hexadecimalVal").val(parseInt(num, 2).toString(16));
+            }
+            if (base == 8) {
+                $("#binaryVal").val(parseInt(num, 8).toString(2))
+                $("#octalVal").val(num);
+                $("#decimalVal").val(parseInt(num, 8));
+                $("#hexadecimalVal").val(parseInt(num, 8).toString(16));
+            }
+            if (base == 10) {
+                $("#binaryVal").val(parseInt(num).toString(2))
+                $("#octalVal").val(parseInt(num).toString(8));
+                $("#decimalVal").val(num);
+                $("#hexadecimalVal").val(parseInt(num).toString(16));
+            }
+            if (base == 16) {
+                $("#binaryVal").val(parseInt(num, 16).toString(2))
+                $("#octalVal").val(parseInt(num, 16).toString(8));
+                $("#decimalVal").val(parseInt(num, 16));
+                $("#hexadecimalVal").val(num);
+            }
+        })
+    })
+</script>
+</html>

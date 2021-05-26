@@ -63,6 +63,7 @@
                         <dd><a id="space" href="space">字符串去空格</a></dd>
                         <dd><a id="timestamp" href="timestamp">时间戳转换</a></dd>
                         <dd><a id="jsonTrans" href="jsonTrans">JSON格式化校验</a></dd>
+                        <dd><a id="baseConversion" href="baseConversion">进制转换</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -93,39 +94,45 @@
             , util = layui.util
             , $ = layui.$;
 
-        $(function(){
-            $(".layui-nav-child a").click(function(e){
+        $(function () {
+            $(".layui-nav-child a").click(function (e) {
                 e.preventDefault();
-                $("#iframeMain").attr("src",$(this).attr("href"));
+                $("#iframeMain").attr("src", $(this).attr("href"));
             })
         })
 
-        var now=new Date();
-        var intDiff=(17*60+30)*60-((now.getHours()*60+now.getMinutes())*60+now.getSeconds())
-        function timer(intDiff){
-            window.setInterval(function(){
-                var day=0,
-                    hour=0,
-                    minute=0,
-                    second=0;//时间默认值
-                if(intDiff > 0){
-                    day = Math.floor(intDiff / (60 * 60 * 24));
-                    hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
-                    minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
-                    second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
-                }
-                if (minute <= 9) minute = '0' + minute;
-                if (second <= 9) second = '0' + second;
-                $('#hour_show').html('<s id="h"></s>'+hour+'时');
-                $('#minute_show').html('<s></s>'+minute+'分');
-                $('#second_show').html('<s></s>'+second+'秒');
+        var now = new Date();
+        var intDiff = (17 * 60 + 30) * 60 - ((now.getHours() * 60 + now.getMinutes()) * 60 + now.getSeconds())
+        echo(intDiff);
+
+        function timer(intDiff) {
+            window.setInterval(function () {
+                echo(intDiff);
                 intDiff--;
             }, 1000);
         }
-        $(function(){
+
+        $(function () {
             timer(intDiff);
         });
 
+        function echo(intDiff) {
+            var day = 0,
+                hour = 0,
+                minute = 0,
+                second = 0;//时间默认值
+            if (intDiff > 0) {
+                day = Math.floor(intDiff / (60 * 60 * 24));
+                hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+                minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+                second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+            }
+            if (minute <= 9) minute = '0' + minute;
+            if (second <= 9) second = '0' + second;
+            $('#hour_show').html('<s id="h"></s>' + hour + '时');
+            $('#minute_show').html('<s></s>' + minute + '分');
+            $('#second_show').html('<s></s>' + second + '秒');
+        }
     });
 </script>
 </body>
