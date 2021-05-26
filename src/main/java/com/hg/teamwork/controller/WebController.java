@@ -50,4 +50,9 @@ public class WebController {
     public String ocr() {
         return "/tool/ocr";
     }
+
+    @RequestMapping("/lottery")
+    public String lottery() {
+        return "/recreation/lottery";
+    }
 }
