@@ -55,4 +55,9 @@ public class WebController {
     public String lottery() {
         return "/recreation/lottery";
     }
+
+    @RequestMapping("/humpConversion")
+    public String humpConversion() {
+        return "/tool/humpConversion";
+    }
 }

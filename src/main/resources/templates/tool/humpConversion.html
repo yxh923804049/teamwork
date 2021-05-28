@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmls="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" href="layui/css/layui.css" type="text/css">
+    <script th:src="@{/layui/layui.js}" src="layui/layui.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+<form class="layui-form" action="">
+    <div style="padding-top: 10px">
+        <div class="layui-form-item">
+            <label class="layui-form-label">驼峰</label>
+            <div class="layui-input-inline">
+                <input type="text" id="preHump1" name="preHump1" lay-verify="title" autocomplete="off"
+                       class="layui-input">
+            </div>
+            <div class="layui-input-inline" style="width: 70px">
+                <button type="button" class="layui-btn layui-btn-normal" id="transform1">转换</button>
+            </div>
+            <div class="layui-input-inline">
+                <input type="text" id="aftHump1" name="aftHump1" lay-verify="title" autocomplete="off"
+                       class="layui-input" readonly>
+            </div>
+            <label class="layui-form-label" style="text-align: left">下划线</label>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">下划线</label>
+            <div class="layui-input-inline">
+                <input type="text" id="preHump2" name="preHump2" lay-verify="title" autocomplete="off"
+                       class="layui-input">
+            </div>
+            <div class="layui-input-inline" style="width: 70px">
+                <button type="button" class="layui-btn layui-btn-normal" id="transform2">转换</button>
+            </div>
+            <div class="layui-input-inline">
+                <input type="aftTime" id="aftHump2" name="aftHump2" lay-verify="title" autocomplete="off"
+                       class="layui-input" readonly>
+            </div>
+            <label class="layui-form-label" style="text-align: left">驼峰</label>
+        </div>
+    </div>
+</form>
+</body>
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form;
+        $("#transform1").click(function () {
+            var str = $("#preHump1").val();
+            $("#aftHump1").val(toLine(str));
+        })
+
+        $("#transform2").click(function () {
+            var str = $("#preHump2").val();
+            $("#aftHump2").val(toHump(str));
+        })
+
+
+    })
+
+    /*下划线转驼峰*/
+    function toHump(name) {
+        return name.replace(/\_(\w)/g, function (all, letter) {
+            return letter.toUpperCase();
+        });
+    }
+
+    /* 驼峰转换下划线*/
+    function toLine(name) {
+        return name.replace(/([A-Z])/g, "_$1").toLowerCase();
+    }
+</script>
+</html>
