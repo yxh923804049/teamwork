@@ -1,6 +1,9 @@
 package com.hg.teamwork.controller;
 
+import com.hg.teamwork.model.Takeway;
+import com.hg.teamwork.server.TakewayServer;
 import com.hg.teamwork.util.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +24,9 @@ public class businessController {
 
     static String url = "https://aip.baidubce.com/rest/2.0/ocr/v1/general_basic";
     static String accessToken = "";
+
+    @Autowired
+    TakewayServer takewayServer;
 
     /**
      * Crc加密
@@ -113,5 +119,34 @@ public class businessController {
             result = "220";
         }
         return result;
+    }
+
+    /**
+     * 获取拿外卖的人
+     *
+     * @return
+     */
+    @PostMapping("/selectTakeWay")
+    public String selectTakeWay() {
+        Takeway takeway = takewayServer.select();
+        String str = "无";
+        if (takeway != null) {
+            str = takeway.getName();
+        }
+        return str;
+    }
+
+    /**
+     * 查询拿的次数
+     *
+     * @return
+     */
+    @PostMapping("/selectCount")
+    public String selectCount() {
+        int a, b, c = 0;
+        a = takewayServer.selectCount("应");
+        b = takewayServer.selectCount("张");
+        c = takewayServer.selectCount("丁");
+        return a + ":" + b + ":" + c;
     }
 }

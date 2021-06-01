@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmls="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" href="layui/css/layui.css" type="text/css">
+    <script th:src="@{/layui/layui.js}" src="layui/layui.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+<div style="text-align: center">
+    <h1 style="padding: 10px">今天的幸运儿</h1>
+</div>
+<div style="text-align: center">
+    <h2 id="name"></h2>
+</div>
+<div style="width: 500px;margin: auto;padding-top: 50px">
+    <table class="layui-table" lay-even="" lay-skin="row">
+        <colgroup>
+            <col width="150">
+            <col width="150">
+        </colgroup>
+        <thead>
+        <tr>
+            <th>名字</th>
+            <th>总次数</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>应</td>
+            <td>
+                <input type="text" id="count1" name="count1" lay-verify="title" autocomplete="off"
+                       class="layui-input" readonly>
+            </td>
+        </tr>
+        <tr>
+            <td>张</td>
+            <td>
+                <input type="text" id="count2" name="count2" lay-verify="title" autocomplete="off"
+                       class="layui-input" readonly>
+            </td>
+        </tr>
+        <tr>
+            <td>丁</td>
+            <td>
+                <input type="text" id="count3" name="count3" lay-verify="title" autocomplete="off"
+                       class="layui-input" readonly>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+</body>
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form;
+
+        $.ajax({
+            type: 'post',
+            url: '/selectTakeWay',
+            success: function (data) {
+                $("#name").text(data);
+            }
+        })
+
+        $.ajax({
+            type: 'post',
+            url: '/selectCount',
+            success: function (data) {
+                var arr=data.split(":");
+                $("#count1").val(arr[0]);
+                $("#count2").val(arr[1]);
+                $("#count3").val(arr[2]);
+            }
+        })
+
+
+    })
+</script>
+</html>

@@ -16,6 +16,11 @@ public class WebController {
         return "/index";
     }
 
+    @RequestMapping("/index2")
+    public String index2() {
+        return "/index2";
+    }
+
     @RequestMapping("/crc")
     public String crc() {
         return "/tool/crc";
@@ -59,5 +64,10 @@ public class WebController {
     @RequestMapping("/humpConversion")
     public String humpConversion() {
         return "/tool/humpConversion";
+    }
+
+    @RequestMapping("/takeway")
+    public String takeway() {
+        return "/recreation/takeway";
     }
 }
