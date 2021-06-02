@@ -10,7 +10,7 @@ spring:
     name: teamwork
   datasource:
     driver_class_name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://47.99.183.98:3306/we?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=GMT
+    url: jdbc:mysql://47.99.183.98:3306/we?useUnicode=true&characterEncoding=utf8&useSSL=true&serverTimezone=Asia/Shanghai
     username: root
     password: 923804049
   servlet:

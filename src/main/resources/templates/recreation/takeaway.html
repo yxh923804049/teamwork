@@ -59,7 +59,7 @@
 
         $.ajax({
             type: 'post',
-            url: '/selectTakeWay',
+            url: '/takeawaySelect',
             success: function (data) {
                 $("#name").text(data);
             }
@@ -67,7 +67,7 @@
 
         $.ajax({
             type: 'post',
-            url: '/selectCount',
+            url: '/takeawayCount',
             success: function (data) {
                 var arr=data.split(":");
                 $("#count1").val(arr[0]);

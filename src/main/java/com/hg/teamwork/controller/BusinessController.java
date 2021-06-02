@@ -1,15 +1,15 @@
 package com.hg.teamwork.controller;
 
-import com.hg.teamwork.model.Takeway;
-import com.hg.teamwork.server.TakewayServer;
+import com.hg.teamwork.model.Takeaway;
+import com.hg.teamwork.service.TakeawayService;
 import com.hg.teamwork.util.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.net.URLEncoder;
 import java.util.UUID;
@@ -20,13 +20,13 @@ import java.util.UUID;
  * @date 2021/05/19
  */
 @RestController
-public class businessController {
+public class BusinessController {
 
     static String url = "https://aip.baidubce.com/rest/2.0/ocr/v1/general_basic";
     static String accessToken = "";
 
-    @Autowired
-    TakewayServer takewayServer;
+    @Resource
+    TakeawayService takeawayServer;
 
     /**
      * Crc加密
@@ -126,12 +126,12 @@ public class businessController {
      *
      * @return
      */
-    @PostMapping("/selectTakeWay")
+    @PostMapping("/takeawaySelect")
     public String selectTakeWay() {
-        Takeway takeway = takewayServer.select();
+        Takeaway takeaway = takeawayServer.takeawaySelect();
         String str = "无";
-        if (takeway != null) {
-            str = takeway.getName();
+        if (takeaway != null) {
+            str = takeaway.getName();
         }
         return str;
     }
@@ -141,12 +141,11 @@ public class businessController {
      *
      * @return
      */
-    @PostMapping("/selectCount")
+    @PostMapping("/takeawayCount")
     public String selectCount() {
-        int a, b, c = 0;
-        a = takewayServer.selectCount("应");
-        b = takewayServer.selectCount("张");
-        c = takewayServer.selectCount("丁");
+        int a = takeawayServer.takeawayCount("应");
+        int b = takeawayServer.takeawayCount("张");
+        int c = takeawayServer.takeawayCount("丁");
         return a + ":" + b + ":" + c;
     }
 }

@@ -66,8 +66,8 @@ public class WebController {
         return "/tool/humpConversion";
     }
 
-    @RequestMapping("/takeway")
-    public String takeway() {
-        return "/recreation/takeway";
+    @RequestMapping("/takeaway")
+    public String takeaway() {
+        return "/recreation/takeaway";
     }
 }
