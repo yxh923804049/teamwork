@@ -21,7 +21,7 @@ spring:
       max-request-size: 100MB
 
 mybatis:
-  mapper-locations: classpath:mapping/*.xml
+  mapper-locations: classpath:mapping/*.xml,classpath:mapping/ext/*.xml
   type-aliases-package: com.hg.teamwork.model
 
       
