@@ -22,7 +22,7 @@ public class TakeawayScheduleTask {
     @Resource
     TakeawayService takeawayServer;
 
-    @Scheduled(cron = "0 0 11 * * ? ")
+    @Scheduled(cron = "0 0 11 ? * MON-FRI")
     private void configureTasks() {
         int a = new Random().nextInt(10000);
         int b = new Random().nextInt(10000);

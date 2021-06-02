@@ -12,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import java.io.File;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -24,6 +26,7 @@ public class BusinessController {
 
     static String url = "https://aip.baidubce.com/rest/2.0/ocr/v1/general_basic";
     static String accessToken = "";
+    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     @Resource
     TakeawayService takeawayServer;
@@ -131,7 +134,11 @@ public class BusinessController {
         Takeaway takeaway = takeawayServer.takeawaySelect();
         String str = "无";
         if (takeaway != null) {
-            str = takeaway.getName();
+            String time = sdf.format(takeaway.getTime());
+            String date = sdf.format(new Date());
+            if (time.equals(date)) {
+                str = takeaway.getName();
+            }
         }
         return str;
     }
