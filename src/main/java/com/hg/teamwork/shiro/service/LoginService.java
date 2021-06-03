@@ -1,7 +1,7 @@
 package com.hg.teamwork.shiro.service;
 
 import com.hg.teamwork.rds.model.UserMst;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.hg.teamwork.service.UserMstService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -17,20 +17,23 @@ public class LoginService {
     @Resource
     private PasswordService passwordService;
 
+    @Resource
+    private UserMstService userMstService;
+
     /**
      * 登录
      */
     public UserMst login(String username, String password) {
 
         // 查询用户信息
-        UserMst user = userService.selectUserByLoginName(username);
+        UserMst userMst = userMstService.selectUserByLoginName(username);
 
-        if (user == null) {
+        if (userMst == null) {
             throw new IllegalArgumentException();
         }
 
-        passwordService.validate(user, password);
+        passwordService.validate(userMst, password);
 
-        return user;
+        return userMst;
     }
 }

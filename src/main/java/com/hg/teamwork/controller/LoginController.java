@@ -1,8 +1,7 @@
 package com.hg.teamwork.controller;
 
 import com.hg.teamwork.common.response.AjaxResult;
-import com.hg.teamwork.rds.model.UserMst;
-import org.apache.commons.lang3.StringUtils;
+import com.hg.teamwork.common.util.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -21,11 +20,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class LoginController extends BaseController {
 
-
-    @PostMapping("/login")
+    @PostMapping("/UserLogin")
     @ResponseBody
-    public AjaxResult ajaxLogin(String username, String password, Boolean rememberMe) {
-        UsernamePasswordToken token = new UsernamePasswordToken(username, password, rememberMe);
+    public AjaxResult ajaxLogin(String username, String password) {
+        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         Subject subject = SecurityUtils.getSubject();
         try {
             subject.login(token);
@@ -45,11 +43,11 @@ public class LoginController extends BaseController {
         return "register";
     }
 
-    @PostMapping("/register")
+   /* @PostMapping("/register")
     @ResponseBody
     public AjaxResult ajaxRegister(UserMst user) {
 
         String msg = registerService.register(user);
         return StringUtils.isEmpty(msg) ? success() : error(msg);
-    }
+    }*/
 }

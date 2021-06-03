@@ -70,4 +70,9 @@ public class WebController {
     public String takeaway() {
         return "/recreation/takeaway";
     }
+
+    @RequestMapping("/login")
+    public String login() {
+        return "/login";
+    }
 }
