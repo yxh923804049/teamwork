@@ -1,7 +1,7 @@
-package com.hg.teamwork.mapper;
+package com.hg.teamwork.rds.mapper;
 
-import com.hg.teamwork.model.Takeaway;
-import com.hg.teamwork.model.TakeawayExample;
+import com.hg.teamwork.rds.model.Takeaway;
+import com.hg.teamwork.rds.model.TakeawayExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

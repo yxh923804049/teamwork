@@ -1,6 +1,6 @@
-package com.hg.teamwork.mapper.ext;
+package com.hg.teamwork.rds.mapper.ext;
 
-import com.hg.teamwork.model.Takeaway;
+import com.hg.teamwork.rds.model.Takeaway;
 
 import java.util.List;
 

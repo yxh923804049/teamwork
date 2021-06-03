@@ -1,8 +1,8 @@
 package com.hg.teamwork.service.impl;
 
-import com.hg.teamwork.mapper.TakeawayMapper;
-import com.hg.teamwork.model.Takeaway;
-import com.hg.teamwork.model.TakeawayExample;
+import com.hg.teamwork.rds.mapper.TakeawayMapper;
+import com.hg.teamwork.rds.model.Takeaway;
+import com.hg.teamwork.rds.model.TakeawayExample;
 import com.hg.teamwork.service.TakeawayService;
 import org.springframework.stereotype.Service;
 

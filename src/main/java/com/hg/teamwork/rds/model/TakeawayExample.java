@@ -1,4 +1,4 @@
-package com.hg.teamwork.model;
+package com.hg.teamwork.rds.model;
 
 import java.util.ArrayList;
 import java.util.Date;

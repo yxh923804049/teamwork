@@ -1,6 +1,6 @@
 package com.hg.teamwork.service;
 
-import com.hg.teamwork.model.Takeaway;
+import com.hg.teamwork.rds.model.Takeaway;
 
 /**
  * @author ying

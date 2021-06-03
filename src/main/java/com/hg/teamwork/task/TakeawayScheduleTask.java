@@ -1,6 +1,6 @@
 package com.hg.teamwork.task;
 
-import com.hg.teamwork.model.Takeaway;
+import com.hg.teamwork.rds.model.Takeaway;
 import com.hg.teamwork.service.TakeawayService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;

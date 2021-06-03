@@ -1,8 +1,8 @@
 package com.hg.teamwork.controller;
 
-import com.hg.teamwork.model.Takeaway;
+import com.hg.teamwork.rds.model.Takeaway;
 import com.hg.teamwork.service.TakeawayService;
-import com.hg.teamwork.util.*;
+import com.hg.teamwork.common.util.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;

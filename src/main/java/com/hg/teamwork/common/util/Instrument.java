@@ -1,4 +1,4 @@
-package com.hg.teamwork.util;
+package com.hg.teamwork.common.util;
 
 import org.springframework.context.annotation.Configuration;
 

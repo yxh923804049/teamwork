@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan(basePackages="com.hg.teamwork.mapper")
+@MapperScan(basePackages="com.hg.teamwork.rds.mapper")
 public class TeamworkApplication {
 
     public static void main(String[] args) {

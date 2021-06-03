@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2017 Baidu, Inc. All Rights Reserved.
  */
-package com.hg.teamwork.util;
+package com.hg.teamwork.common.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
