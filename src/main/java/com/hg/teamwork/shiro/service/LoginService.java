@@ -5,6 +5,7 @@ import com.hg.teamwork.service.UserMstService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * 登录校验方法
@@ -23,16 +24,19 @@ public class LoginService {
     /**
      * 登录
      */
-    public UserMst login(String username, String password) {
+    public UserMst login(String loginName, String password) {
 
         // 查询用户信息
-        UserMst userMst = userMstService.selectUserByLoginName(username);
+        UserMst userMst = userMstService.selectUserByLoginName(loginName);
 
         if (userMst == null) {
             throw new IllegalArgumentException();
         }
 
         passwordService.validate(userMst, password);
+
+        userMst.setLoginDate(new Date());
+        userMstService.userUpdate(userMst);
 
         return userMst;
     }

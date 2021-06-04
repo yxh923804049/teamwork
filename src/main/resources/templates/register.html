@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>登录</title>
+    <title>注册</title>
 
     <!-- Meta-Tags -->
     <meta charset="UTF-8">
@@ -23,7 +23,7 @@
 
 <section class="main">
     <div class="logo text-center">
-        <h1><a> we are ~ 登录</a></h1>
+        <h1><a> we are ~ 注册</a></h1>
     </div>
     <div class="content-w3ls text-center">
         <img src="images/admin.png" alt="" class="img-responsive">
@@ -35,41 +35,69 @@
                 <input name="password" id="password" type="Password" placeholder="密码" required>
             </div>
             <div class="wthree-field">
-                <button id="login" type="button" class="btn">登 录</button>
+                <input name="rePassword" id="rePassword" type="Password" placeholder="确认密码" required>
             </div>
-            <div class="login-bottom">
-                <a href="/register" class="">注册账号</a>
+            <div class="wthree-field">
+                <input name="invitation " id="invitation" type="text" placeholder="邀请码" required>
+            </div>
+            <div class="wthree-field">
+                <button type="button" id="register" class="btn">注 册</button>
             </div>
         </form>
     </div>
 </section>
-
 </body>
+
 <script>
     layui.use(['element', 'layer', 'util'], function () {
-        $("#login").click(function () {
+        $("#register").click(function () {
             var loginName = $("#loginName").val();
             var password = $("#password").val();
-            if (loginName.length === 0 || password.length === 0) {
-                layer.msg("用户名或密码不能为空", {time: 1500});
-            } else {
+            var rePassword = $("#rePassword").val();
+            var invitation = $("#invitation").val();
+            if (loginName.length === 0) {
+                layer.msg("用户名不能为空", {time: 1500});
+                return false;
+            }
+            if (password.length === 0) {
+                layer.msg("密码不能为空", {time: 1500});
+                return false;
+            }
+            if (rePassword.length === 0) {
+                layer.msg("确认密码不能为空", {time: 1500});
+                return false;
+            }
+            if (invitation.length === 0) {
+                layer.msg("邀请码不能为空", {time: 1500});
+                return false;
+            }
+
+            if (password === rePassword) {
                 $.ajax({
                     type: 'post',
-                    url: '/UserLogin',
+                    url: '/userRegister',
                     async: false,
                     data: {
                         loginName: loginName,
-                        password: password
+                        password: password,
+                        code: invitation
                     },
                     success: function (data) {
                         if (data.code == 0) {
-                            window.location.href = "/index2";
+                            layer.msg(data.msg, {
+                                time: 1500
+                            }, function () {
+                                window.location.href = "/login";
+                            });
                         } else {
                             layer.msg(data.msg, {time: 1500});
                         }
                     }
                 })
+            } else {
+                layer.msg("确认密码失败", {time: 1500});
             }
+
         })
     })
 

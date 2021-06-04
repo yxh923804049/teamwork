@@ -10,7 +10,23 @@ public interface UserMstService {
     /**
      * 根据用户名查询
      *
+     * @param loginName
      * @return
      */
     UserMst selectUserByLoginName(String loginName);
+
+    /**
+     * 插入用户
+     *
+     * @param userMst
+     */
+    void userInsert(UserMst userMst);
+
+
+    /**
+     * 修改用户
+     *
+     * @param userMst
+     */
+    void userUpdate(UserMst userMst);
 }

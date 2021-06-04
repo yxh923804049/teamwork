@@ -30,4 +30,14 @@ public class UserMstServiceImpl implements UserMstService {
         }
         return userMst;
     }
+
+    @Override
+    public void userInsert(UserMst userMst) {
+        userMstMapper.insertSelective(userMst);
+    }
+
+    @Override
+    public void userUpdate(UserMst userMst) {
+        userMstMapper.updateByPrimaryKeySelective(userMst);
+    }
 }
