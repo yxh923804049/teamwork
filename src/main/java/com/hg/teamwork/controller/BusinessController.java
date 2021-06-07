@@ -1,8 +1,10 @@
 package com.hg.teamwork.controller;
 
+import com.hg.teamwork.common.response.AjaxResult;
+import com.hg.teamwork.common.util.*;
 import com.hg.teamwork.rds.model.Takeaway;
 import com.hg.teamwork.service.TakeawayService;
-import com.hg.teamwork.common.util.*;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,13 +18,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
+
 /**
  * @author ying
  * @describe 业务控制器
  * @date 2021/05/19
  */
 @RestController
-public class BusinessController {
+public class BusinessController extends BaseController {
 
     static String url = "https://aip.baidubce.com/rest/2.0/ocr/v1/general_basic";
     static String accessToken = "";

@@ -80,4 +80,9 @@ public class WebController {
     public String register() {
         return "/register";
     }
+
+    @RequestMapping("/personalCenter")
+    public String personalCenter() {
+        return "/user/personalCenter";
+    }
 }

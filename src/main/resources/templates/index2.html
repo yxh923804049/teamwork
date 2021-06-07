@@ -49,6 +49,25 @@
                 <i class="layui-icon layui-icon-spread-left"></i>
             </li>
         </ul>
+
+        <ul class="layui-nav layui-layout-right"
+            lay-filter="layadmin-layout-right">
+            <li class="layui-nav-item" lay-unselect><a href="javascript:;">
+                <img src="images/bg.jpg" id="img" alt="" style="height:35px;width:35px;border-radius:50%">
+                <cite id="userName">游客</cite>
+            </a>
+                <dl class="layui-nav-child">
+                    <dd>
+                        <a href="personalCenter">个人中心</a>
+                    </dd>
+                    <hr>
+                    <dd layadmin-event="logout" style="text-align: center;" id="tuichu">
+                        <a href="${pageContext.request.contextPath}/admin/tuiChu.action">退出</a>
+                    </dd>
+                </dl>
+            </li>
+        </ul>
+
     </div>
 
     <div class="layui-side layui-bg-black">
@@ -95,6 +114,14 @@
         </div>
     </div>
 
+    <div class="layui-form-item" style="display: none">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="loginName" id="loginName"
+                   autocomplete="off" class="layui-input" th:value="${param.loginName}">
+        </div>
+    </div>
+
 </div>
 
 <script>
@@ -105,10 +132,28 @@
             , util = layui.util
             , $ = layui.$;
 
+        var loginName = $("#loginName").val();
+        $.ajax({
+            type: 'post',
+            url: '/user/select',
+            async: false,
+            data: {
+                loginName: loginName
+            },
+            success: function (data) {
+                if (data.userName != "") {
+                    $("#userName").text(data.userName);
+                }
+                if (data.avatar != "") {
+                    $("#img").attr('src', "/img/" + data.avatar);
+                }
+            }
+        });
+
         $(function () {
             $(".layui-nav-child a").click(function (e) {
                 e.preventDefault();
-                $("#iframeMain").attr("src", $(this).attr("href"));
+                $("#iframeMain").attr("src", $(this).attr("href") + "?loginName=" + loginName);
             })
         })
 

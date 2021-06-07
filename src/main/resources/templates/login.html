@@ -63,7 +63,7 @@
                     },
                     success: function (data) {
                         if (data.code == 0) {
-                            window.location.href = "/index2";
+                            window.location.href = "/index2?loginName=" + loginName;
                         } else {
                             layer.msg(data.msg, {time: 1500});
                         }
