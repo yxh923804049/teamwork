@@ -1,8 +1,12 @@
 package com.hg.teamwork.controller;
 
 import com.hg.teamwork.common.response.AjaxResult;
+import com.hg.teamwork.common.util.ShiroUtils;
 import com.hg.teamwork.rds.model.UserMst;
 import com.hg.teamwork.service.UserMstService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.crypto.hash.Md5Hash;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -88,5 +92,26 @@ public class UserController extends BaseController {
         return userMst;
     }
 
+    /**
+     * 修改密码
+     *
+     * @param loginName
+     * @return
+     */
+    @PostMapping("/editPassword")
+    @ResponseBody
+    public AjaxResult editPassword(String loginName, String password) {
+        UserMst userMst = userMstService.selectUserByLoginName(loginName);
+        if (userMst != null) {
+            String salt = ShiroUtils.randomSalt();
+            String pwd = new Md5Hash(loginName + password + salt).toHex();
+            userMst.setLoginName(loginName);
+            userMst.setPassword(pwd);
+            userMst.setSalt(salt);
+            userMstService.userUpdate(userMst);
+            return success();
+        }
+        return error();
+    }
 
 }

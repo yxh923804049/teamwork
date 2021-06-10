@@ -85,4 +85,9 @@ public class WebController {
     public String personalCenter() {
         return "/user/personalCenter";
     }
+
+    @RequestMapping("/passwordView")
+    public String passwordView() {
+        return "/user/passwordView";
+    }
 }

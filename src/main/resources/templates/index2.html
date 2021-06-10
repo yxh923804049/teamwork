@@ -59,10 +59,11 @@
                 <dl class="layui-nav-child">
                     <dd>
                         <a href="personalCenter">个人中心</a>
+                        <a href="passwordView">修改密码</a>
                     </dd>
                     <hr>
-                    <dd layadmin-event="logout" style="text-align: center;" id="tuichu">
-                        <a href="${pageContext.request.contextPath}/admin/tuiChu.action">退出</a>
+                    <dd layadmin-event="logout" style="text-align: center;" id="dropOut">
+                        <a href="/login">退出</a>
                     </dd>
                 </dl>
             </li>
@@ -152,8 +153,12 @@
 
         $(function () {
             $(".layui-nav-child a").click(function (e) {
-                e.preventDefault();
-                $("#iframeMain").attr("src", $(this).attr("href") + "?loginName=" + loginName);
+                if (e.currentTarget.innerText == "退出") {
+                    $("#iframeMain").attr("src", $(this).attr("href"));
+                } else {
+                    e.preventDefault();
+                    $("#iframeMain").attr("src", $(this).attr("href") + "?loginName=" + loginName);
+                }
             })
         })
 
