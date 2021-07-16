@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmls="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" href="layui/css/layui.css" type="text/css">
+    <script th:src="@{/layui/layui.js}" src="layui/layui.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+<div class="layui-form layui-card-header layuiadmin-card-header-auto">
+    <div class="test-table-reload-btn" style="margin-top: 20px;">
+        <div class="layui-input-inline" style="display: none">
+            <input type="text" name="loginName" id="loginName"
+                   autocomplete="off" class="layui-input" th:value="${param.loginName}">
+        </div>
+        <div class="layui-inline">
+            <input class="layui-input" placeholder="资料名" id="profileName"
+                   name="profileName" autocomplete="off">
+        </div>
+        <div class="layui-inline">
+            <select id="userName" name="userName" class="userName">
+                <option value="">请选择分享者</option>
+            </select>
+        </div>
+        <button id="search_btn" class="layui-btn" data-type="reload">搜索</button>
+        <button id="add" class="layui-btn" data-type="add">添加</button>
+        <button id="del" class="layui-btn" data-type="del">删除</button>
+    </div>
+</div>
+<table id="profile" lay-filter="test"></table>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="download">下载</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+</body>
+<script>
+    layui.use(['table', 'form', 'jquery', 'util'], function () {
+        var table = layui.table;
+        var form = layui.form;
+        var util = layui.util;
+        var loginName = $("#loginName").val();
+        table.render({
+            elem: '#profile'
+            , url: '/materials/getMaterialsList' //数据接口
+            , page: true
+            , cols: [
+                [
+                    {type: 'checkbox'}
+                    , {field: 'id', title: 'ID', sort: true, align: 'center'}
+                    , {field: 'profileName', title: '资料名', align: 'center'}
+                    , {field: 'userName', title: '分享者', align: 'center'}
+                    , {
+                    field: 'createTime', title: '创建时间', align: 'center', templet: function (d) {
+                        return util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss")
+                    }
+                }
+                    , {fixed: 'right', title: '操作', align: 'center', toolbar: '#barDemo'}
+                ]
+            ]
+        });
+
+        //获取分享者
+        $.ajax({
+            type: 'post',
+            url: '/user/selectUsers',
+            async: false,
+            data: {},
+            success: function (data) {
+                var users = data.data;
+                var html = '';
+                for (var i = 0; i < users.length; i++) {
+                    html += '<option value="' + users[i].userId + '">' + users[i].userName + '</option>'
+                }
+                $('#userName').append(html);
+                form.render('select');
+            }
+        })
+
+        //搜索
+        $('#search_btn').click(function () {
+            var profileName = $('#profileName').val();
+            var userId = $('#userName').val();
+            table.reload('profile', {
+                url: '/materials/getMaterialsList'
+                , where: {
+                    userId: userId,
+                    profileName: profileName
+                } //设定异步数据接口的额外参数
+                //,height: 300
+            });
+        });
+
+        //跳转到添加管理员
+        $('#add').click(function () {
+            layer.open({
+                type: 2,
+                title: "添加",
+                area: ['100%', '100%'],
+                content: '/studyDocumentAdd?loginName=' + loginName
+            });
+        });
+
+        //监听行工具事件
+        table.on('tool(test)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'edit') {
+                layer.open({
+                    id: 'ed',
+                    type: 2,//iframe
+                    title: '修改',
+                    area: ['100%', '100%'],
+                    offset: 'auto',// 坐标
+                    content: '/studyDocumentEdit?id='
+                        + data.id
+                })
+            } else if (obj.event === 'download') {
+                $.ajax({
+                    type: 'post',
+                    url: '/materials/getMaterials',
+                    data: {
+                       id:data.id
+                    },
+                    success: function (res) {
+                        var url="/profile/"+res.path;
+                        window.open(url);
+                    }
+                })
+
+            }
+        })
+    })
+</script>
+</html>

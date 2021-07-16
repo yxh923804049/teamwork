@@ -1,12 +1,11 @@
 package com.hg.teamwork.controller;
 
 import com.hg.teamwork.common.response.AjaxResult;
+import com.hg.teamwork.common.response.DataView;
 import com.hg.teamwork.common.util.ShiroUtils;
 import com.hg.teamwork.rds.model.UserMst;
 import com.hg.teamwork.service.UserMstService;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
-import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.io.File;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -112,6 +112,21 @@ public class UserController extends BaseController {
             return success();
         }
         return error();
+    }
+
+    /**
+     * 获取所有用户
+     *
+     * @return
+     */
+    @PostMapping("/selectUsers")
+    @ResponseBody
+    public DataView selectUsers() {
+        DataView dataView = new DataView();
+        List<UserMst> userMsts = userMstService.selectUsers();
+        dataView.setCode(0);
+        dataView.setData(userMsts);
+        return dataView;
     }
 
 }

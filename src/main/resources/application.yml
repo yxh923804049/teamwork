@@ -1,5 +1,5 @@
 server:
-  port: 8990
+  port: 8080
 
 spring:
   thymeleaf:
@@ -17,8 +17,8 @@ spring:
     multipart:
       enabled: true
       file-size-threshold: 0
-      max-file-size: 100MB
-      max-request-size: 100MB
+      max-file-size: 5000MB
+      max-request-size: 5000MB
 
 mybatis:
   mapper-locations: classpath:mapping/*.xml,classpath:mapping/ext/*.xml

@@ -40,4 +40,10 @@ public class UserMstServiceImpl implements UserMstService {
     public void userUpdate(UserMst userMst) {
         userMstMapper.updateByPrimaryKeySelective(userMst);
     }
+
+    @Override
+    public List<UserMst> selectUsers() {
+        UserMstExample userMstExample = new UserMstExample();
+        return userMstMapper.selectByExample(userMstExample);
+    }
 }

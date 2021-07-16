@@ -2,6 +2,8 @@ package com.hg.teamwork.service;
 
 import com.hg.teamwork.rds.model.UserMst;
 
+import java.util.List;
+
 /**
  * @author ying
  * @date 2021/06/03
@@ -29,4 +31,10 @@ public interface UserMstService {
      * @param userMst
      */
     void userUpdate(UserMst userMst);
+
+    /**
+     * 查询所有用户
+     * @return
+     */
+    List<UserMst> selectUsers();
 }

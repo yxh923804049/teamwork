@@ -90,4 +90,24 @@ public class WebController {
     public String passwordView() {
         return "/user/passwordView";
     }
+
+    @RequestMapping("/twoZeroFourEight")
+    public String twoZeroFourEight() {
+        return "/recreation/twoZeroFourEight";
+    }
+
+    @RequestMapping("/studyDocument")
+    public String studyDocument() {
+        return "/document/studyDocument";
+    }
+
+    @RequestMapping("/studyDocumentAdd")
+    public String studyDocumentAdd() {
+        return "/document/studyDocumentAdd";
+    }
+
+    @RequestMapping("/studyDocumentEdit")
+    public String studyDocumentEdit() {
+        return "/document/studyDocumentEdit";
+    }
 }

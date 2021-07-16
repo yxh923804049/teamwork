@@ -93,6 +93,7 @@
             , $ = layui.$;
 
         $(function () {
+            console.log("22")
             $(".layui-nav-child a").click(function (e) {
                 e.preventDefault();
                 $("#iframeMain").attr("src", $(this).attr("href"));
