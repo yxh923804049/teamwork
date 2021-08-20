@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmls="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,target-densitydpi=high-dpi,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <title>2048</title>
+    <style type="text/css">
+        table {
+            table-layout: fixed
+        }
+
+        table tr td {
+            background-color: #fffef9;
+            border: #666666;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{/js/canvas.js}" src="js/canvas.js"></script>
+<body>
+<div id="version"></div>
+<table cellspacing="5px" frame="border" style="text-align: center" white="300">
+    <tr>
+        <td id="0">
+        </td>
+        <td id="1">
+        </td>
+        <td id="2">
+        </td>
+        <td id="3">
+        </td>
+    </tr>
+    <tr>
+        <td id="4">
+        </td>
+        <td id="5">
+        </td>
+        <td id="6">
+        </td>
+        <td id="7">
+        </td>
+    </tr>
+    <tr>
+        <td id="8">
+        </td>
+        <td id="9">
+        </td>
+        <td id="10">
+        </td>
+        <td id="11">
+        </td>
+    </tr>
+    <tr>
+        <td id="12">
+        </td>
+        <td id="13">
+        </td>
+        <td id="14">
+        </td>
+        <td id="15">
+        </td>
+    </tr>
+</table>
+<script type="text/javascript" th:src="@{/js/setHeight.js}" src="js/setHeight.js"></script>
+<script type="text/javascript">
+    document.onkeypress = function (evt) {
+        if (evt.keyCode == '119') {
+            up();//上
+        }
+        if (evt.keyCode == '115') {
+            down();//下
+        }
+        if (evt.keyCode == '100') {
+            right();
+        }
+        if (evt.keyCode == '97') {
+            left();
+        }
+    }
+</script>
+</body>
+</html>

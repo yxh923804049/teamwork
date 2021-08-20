@@ -24,4 +24,8 @@ mybatis:
   mapper-locations: classpath:mapping/*.xml,classpath:mapping/ext/*.xml
   type-aliases-package: com.hg.teamwork.model
 
+logging:
+  level:
+    root: info
+
       
